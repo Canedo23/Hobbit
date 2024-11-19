@@ -3,11 +3,16 @@ package edu.adrian.entities;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,24 +23,40 @@ public class Posesion {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column(name = "id_posesion")
 private Long idPosesion;
-@Column(name = "id_personaje", nullable = false)
-private Long idPersonaje;
-@Column(name = "id_artefacto", nullable = false)
-private Long idArtefacto;
+@ManyToOne
+@JsonIgnore
+@JoinColumn(name = "id_personaje", nullable = false, referencedColumnName = "idPersonaje")
+private Personaje personaje;
+@ManyToOne
+@JsonIgnore
+@JoinColumn(name = "id_artefacto", nullable = false, referencedColumnName = "idArtefacto")
+private Artefacto artefacto;
 @Column(name = "fecha_inicio", nullable = false)
 private LocalDate fechaInicio;
 @Column(name = "fecha_fin", nullable = true)
 private LocalDate fechaFin;
 
-public Posesion(Long idPosesion, Long idPersonaje, Long idArtefacto, LocalDate fechaInicio, LocalDate fechaFin) {
-    this.idPosesion = idPosesion;
-    this.idPersonaje = idPersonaje;
-    this.idArtefacto = idArtefacto;
+
+public Posesion(){}
+
+
+
+public Posesion(Personaje idPersonaje, Artefacto idArtefacto, LocalDate fechaInicio, LocalDate fechaFin) {
+    this.personaje = idPersonaje;
+    this.artefacto = idArtefacto;
     this.fechaInicio = fechaInicio;
     this.fechaFin = fechaFin;
 }
 
-public Posesion(){}
+
+
+public Posesion(Long idPosesion, Personaje idPersonaje, Artefacto idArtefacto, LocalDate fechaInicio, LocalDate fechaFin) {
+    this.idPosesion = idPosesion;
+    this.personaje = idPersonaje;
+    this.artefacto = idArtefacto;
+    this.fechaInicio = fechaInicio;
+    this.fechaFin = fechaFin;
+}
 
 public Long getIdPosesion() {
     return idPosesion;
@@ -45,20 +66,20 @@ public void setIdPosesion(Long idPosesion) {
     this.idPosesion = idPosesion;
 }
 
-public Long getIdPersonaje() {
-    return idPersonaje;
+public Personaje getIdPersonaje() {
+    return personaje;
 }
 
-public void setIdPersonaje(Long idPersonaje) {
-    this.idPersonaje = idPersonaje;
+public void setIdPersonaje(Personaje idPersonaje) {
+    this.personaje = idPersonaje;
 }
 
-public Long getIdArtefacto() {
-    return idArtefacto;
+public Artefacto getIdArtefacto() {
+    return artefacto;
 }
 
-public void setIdArtefacto(Long idArtefacto) {
-    this.idArtefacto = idArtefacto;
+public void setIdArtefacto(Artefacto idArtefacto) {
+    this.artefacto = idArtefacto;
 }
 
 public LocalDate getFechaInicio() {
@@ -76,13 +97,5 @@ public LocalDate getFechaFin() {
 public void setFechaFin(LocalDate fechaFin) {
     this.fechaFin = fechaFin;
 }
-
-@Override
-public String toString() {
-    return "Posesion [idPosesion=" + idPosesion + ", idPersonaje=" + idPersonaje + ", idArtefacto=" + idArtefacto
-            + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + "]";
-}
-
-
 
 }
