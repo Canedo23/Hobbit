@@ -2,10 +2,14 @@ package edu.adrian.entities;
 
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.adrian.entities.enumerados.Alianza;
 import edu.adrian.entities.enumerados.Raza;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,7 +28,7 @@ public class Personaje {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long idPersonaje;
-@Column(length = 50, nullable = false, unique = true)
+@Column(length = 50, nullable = false, unique = false)
 private String nombre;
 @Enumerated(EnumType.STRING)
 @Column(nullable = false)
@@ -32,7 +36,8 @@ private Raza raza;
 @Column(nullable = false)
 @Enumerated(EnumType.STRING)
 private Alianza alianza;
-@OneToMany(fetch = FetchType.EAGER, mappedBy = "personaje")
+//@OnDelete(action = OnDeleteAction.CASCADE) no hace falta diferencia entre orphamRemoval y el cascade
+@OneToMany(fetch = FetchType.EAGER, mappedBy = "personaje", cascade=CascadeType.ALL,orphanRemoval = true)
 private List<Posesion> posesiones;
 
 public Personaje(){}

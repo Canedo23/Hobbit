@@ -53,5 +53,10 @@ public Personaje actualizarPersonaje(@RequestBody Personaje per) {
     return personajeServ.guardarPersonaje(per);
 }
 
+@PostMapping("/refresh")
+public Personaje guardarPersonajesPosesion(@RequestBody Personaje personaje) {
+    return personajeServ.guardarPersonajesPosesion(personaje);
+}
+
 
 }

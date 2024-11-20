@@ -25,11 +25,10 @@ public class Posesion {
 private Long idPosesion;
 @ManyToOne
 @JsonIgnore
-@JoinColumn(name = "id_personaje", nullable = false, referencedColumnName = "idPersonaje")
+@JoinColumn(name = "id_personaje", nullable = true, referencedColumnName = "idPersonaje")
 private Personaje personaje;
 @ManyToOne
-@JsonIgnore
-@JoinColumn(name = "id_artefacto", nullable = false, referencedColumnName = "idArtefacto")
+@JoinColumn(name = "id_artefacto", nullable = true, referencedColumnName = "idArtefacto")
 private Artefacto artefacto;
 @Column(name = "fecha_inicio", nullable = false)
 private LocalDate fechaInicio;
@@ -40,62 +39,55 @@ private LocalDate fechaFin;
 public Posesion(){}
 
 
-
-public Posesion(Personaje idPersonaje, Artefacto idArtefacto, LocalDate fechaInicio, LocalDate fechaFin) {
-    this.personaje = idPersonaje;
-    this.artefacto = idArtefacto;
-    this.fechaInicio = fechaInicio;
-    this.fechaFin = fechaFin;
-}
-
-
-
-public Posesion(Long idPosesion, Personaje idPersonaje, Artefacto idArtefacto, LocalDate fechaInicio, LocalDate fechaFin) {
-    this.idPosesion = idPosesion;
-    this.personaje = idPersonaje;
-    this.artefacto = idArtefacto;
-    this.fechaInicio = fechaInicio;
-    this.fechaFin = fechaFin;
-}
-
 public Long getIdPosesion() {
     return idPosesion;
 }
+
 
 public void setIdPosesion(Long idPosesion) {
     this.idPosesion = idPosesion;
 }
 
-public Personaje getIdPersonaje() {
+
+public Personaje getPersonaje() {
     return personaje;
 }
 
-public void setIdPersonaje(Personaje idPersonaje) {
-    this.personaje = idPersonaje;
+
+public void setPersonaje(Personaje personaje) {
+    this.personaje = personaje;
 }
 
-public Artefacto getIdArtefacto() {
+
+public Artefacto getArtefacto() {
     return artefacto;
 }
 
-public void setIdArtefacto(Artefacto idArtefacto) {
-    this.artefacto = idArtefacto;
+
+public void setArtefacto(Artefacto artefacto) {
+    this.artefacto = artefacto;
 }
+
 
 public LocalDate getFechaInicio() {
     return fechaInicio;
 }
 
+
 public void setFechaInicio(LocalDate fechaInicio) {
     this.fechaInicio = fechaInicio;
 }
+
 
 public LocalDate getFechaFin() {
     return fechaFin;
 }
 
+
 public void setFechaFin(LocalDate fechaFin) {
     this.fechaFin = fechaFin;
 }
+
+
 
 }
